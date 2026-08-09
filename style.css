@@ -1,0 +1,1369 @@
+/* =========================================================
+   FOMIXA 07 — PREMIUM RESPONSIVE STYLE
+   MOBILE + TABLET + LAPTOP + DESKTOP
+   ========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+:root{
+  --bg:#050b10;
+  --bg2:#08151d;
+  --surface:#0b1b25;
+  --surface2:#102732;
+
+  --text:#f7f1e6;
+  --muted:#91a6ae;
+
+  --gold:#c9a76a;
+  --gold-light:#efd39a;
+  --gold-dark:#87693c;
+
+  --line:rgba(201,167,106,.20);
+  --white-line:rgba(255,255,255,.08);
+
+  --radius:24px;
+  --container:1380px;
+
+  --shadow:0 30px 80px rgba(0,0,0,.48);
+}
+
+/* =========================================================
+   RESET
+   ========================================================= */
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+  background:var(--bg);
+}
+
+body{
+  min-height:100vh;
+  overflow-x:hidden;
+
+  color:var(--text);
+
+  font-family:"Cairo",sans-serif;
+  line-height:1.7;
+
+  background:
+    radial-gradient(
+      circle at 80% 5%,
+      rgba(20,95,125,.20),
+      transparent 32%
+    ),
+    radial-gradient(
+      circle at 10% 45%,
+      rgba(201,167,106,.055),
+      transparent 30%
+    ),
+    linear-gradient(
+      180deg,
+      #061018 0%,
+      #050c11 55%,
+      #07131a 100%
+    );
+
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+
+/* =========================================================
+   EGYPTIAN TEMPLE BACKGROUND
+   ========================================================= */
+
+body::before{
+  content:"";
+
+  position:fixed;
+  inset:0;
+
+  z-index:-5;
+  pointer-events:none;
+
+  opacity:.075;
+
+  background-image:
+    linear-gradient(
+      to bottom,
+      rgba(5,11,16,.25),
+      rgba(5,11,16,.78)
+    ),
+    url("assets/brand/temple-bg.jpg");
+
+  background-position:center;
+  background-size:cover;
+  background-repeat:no-repeat;
+
+  filter:
+    grayscale(.35)
+    sepia(.18)
+    contrast(1.05);
+}
+
+body::after{
+  content:"";
+
+  position:fixed;
+  inset:0;
+
+  z-index:-4;
+  pointer-events:none;
+
+  background:
+    radial-gradient(
+      ellipse at center,
+      transparent 25%,
+      rgba(0,0,0,.55) 100%
+    );
+}
+
+/* =========================================================
+   GENERAL
+   ========================================================= */
+
+img,
+video{
+  display:block;
+  max-width:100%;
+}
+
+button,
+input,
+select{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+::selection{
+  background:var(--gold);
+  color:#071016;
+}
+
+/* =========================================================
+   SCROLLBAR
+   ========================================================= */
+
+::-webkit-scrollbar{
+  width:8px;
+}
+
+::-webkit-scrollbar-track{
+  background:#04090d;
+}
+
+::-webkit-scrollbar-thumb{
+  background:linear-gradient(
+    var(--gold-dark),
+    var(--gold)
+  );
+  border-radius:20px;
+}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+header{
+  position:fixed;
+
+  top:0;
+  left:0;
+  right:0;
+
+  height:82px;
+
+  z-index:1000;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  gap:25px;
+
+  padding:
+    0 max(
+      22px,
+      calc((100vw - var(--container))/2)
+    );
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(3,9,13,.96),
+      rgba(3,9,13,.72)
+    );
+
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+
+  border-bottom:1px solid transparent;
+
+  transition:.3s ease;
+}
+
+header.scrolled{
+  height:70px;
+
+  background:rgba(3,9,13,.95);
+
+  border-color:var(--line);
+
+  box-shadow:
+    0 15px 50px rgba(0,0,0,.35);
+}
+
+/* =========================================================
+   BRAND
+   ========================================================= */
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:7px;
+
+  font-family:"IBM Plex Mono",monospace;
+
+  font-size:18px;
+  font-weight:600;
+
+  letter-spacing:1px;
+
+  white-space:nowrap;
+}
+
+.brand b{
+  color:var(--gold);
+}
+
+/* =========================================================
+   NAV
+   ========================================================= */
+
+nav{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  gap:30px;
+
+  direction:rtl;
+}
+
+nav a{
+  position:relative;
+
+  color:#b6c4ca;
+
+  font-size:14px;
+  font-weight:600;
+
+  transition:.25s ease;
+}
+
+nav a::after{
+  content:"";
+
+  position:absolute;
+
+  right:0;
+  bottom:-8px;
+
+  width:0;
+  height:1px;
+
+  background:var(--gold);
+
+  transition:.3s ease;
+}
+
+nav a:hover{
+  color:var(--gold-light);
+}
+
+nav a:hover::after{
+  width:100%;
+}
+
+/* =========================================================
+   CTA
+   ========================================================= */
+
+.cta{
+  min-height:43px;
+
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+
+  padding:0 18px;
+
+  border:1px solid rgba(201,167,106,.55);
+  border-radius:999px;
+
+  color:var(--gold-light);
+
+  font-size:13px;
+  font-weight:700;
+
+  transition:.3s ease;
+}
+
+.cta:hover{
+  color:#071016;
+
+  background:var(--gold);
+
+  transform:translateY(-2px);
+
+  box-shadow:
+    0 12px 35px rgba(201,167,106,.2);
+}
+
+/* =========================================================
+   MAIN
+   ========================================================= */
+
+main{
+  width:100%;
+}
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.hero{
+  position:relative;
+
+  width:min(
+    calc(100% - 40px),
+    var(--container)
+  );
+
+  min-height:100vh;
+
+  margin:auto;
+
+  padding:
+    145px 0 90px;
+
+  display:grid;
+
+  grid-template-columns:
+    minmax(0,1.05fr)
+    minmax(330px,.95fr);
+
+  align-items:center;
+
+  gap:clamp(40px,6vw,110px);
+}
+
+/* =========================================================
+   COVER
+   ========================================================= */
+
+.cover-wrap{
+  position:relative;
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+  width:100%;
+
+  perspective:1200px;
+}
+
+.cover{
+  position:relative;
+
+  width:min(100%,650px);
+
+  aspect-ratio:16/10;
+
+  overflow:hidden;
+
+  border-radius:28px;
+
+  border:1px solid rgba(201,167,106,.25);
+
+  background:#08131a;
+
+  box-shadow:
+    0 35px 100px rgba(0,0,0,.58),
+    0 0 0 1px rgba(255,255,255,.025);
+
+  transition:.5s ease;
+}
+
+.cover:hover{
+  transform:
+    translateY(-7px)
+    scale(1.01);
+
+  border-color:
+    rgba(201,167,106,.45);
+
+  box-shadow:
+    0 45px 110px rgba(0,0,0,.65),
+    0 0 50px rgba(201,167,106,.08);
+}
+
+.cover img{
+  width:100%;
+  height:100%;
+
+  object-fit:cover;
+}
+
+/* =========================================================
+   COVER GLOW
+   ========================================================= */
+
+.cover-glow{
+  position:absolute;
+
+  width:70%;
+  height:60%;
+
+  left:15%;
+  bottom:-12%;
+
+  z-index:-1;
+
+  background:
+    radial-gradient(
+      ellipse,
+      rgba(24,116,150,.32),
+      transparent 70%
+    );
+
+  filter:blur(50px);
+
+  pointer-events:none;
+}
+
+/* =========================================================
+   PROFILE
+   ========================================================= */
+
+.profile{
+  display:flex;
+  flex-direction:column;
+
+  gap:25px;
+
+  max-width:590px;
+}
+
+/* =========================================================
+   AVATAR
+   ========================================================= */
+
+.avatar{
+  width:92px;
+  height:92px;
+
+  padding:4px;
+
+  border-radius:50%;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--gold),
+      transparent
+    );
+
+  border:1px solid rgba(201,167,106,.45);
+
+  box-shadow:
+    0 15px 45px rgba(0,0,0,.35);
+}
+
+.avatar img{
+  width:100%;
+  height:100%;
+
+  object-fit:cover;
+
+  border-radius:50%;
+}
+
+/* =========================================================
+   TEXT
+   ========================================================= */
+
+.intro small,
+.section .head small,
+.about > div:last-child > small,
+.contact > small{
+  display:block;
+
+  margin-bottom:11px;
+
+  color:var(--gold);
+
+  font-family:"IBM Plex Mono",monospace;
+
+  font-size:11px;
+  font-weight:600;
+
+  letter-spacing:2px;
+}
+
+.intro h1{
+  font-size:clamp(40px,5vw,76px);
+
+  line-height:1.12;
+
+  font-weight:900;
+
+  letter-spacing:-2px;
+}
+
+.intro h1 em{
+  display:block;
+
+  color:var(--gold-light);
+
+  font-style:normal;
+}
+
+.intro p{
+  max-width:530px;
+
+  margin-top:18px;
+
+  color:var(--muted);
+
+  font-size:clamp(14px,1.4vw,17px);
+
+  line-height:2;
+}
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+.buttons,
+.contact-actions{
+  display:flex;
+  flex-wrap:wrap;
+
+  gap:12px;
+
+  margin-top:24px;
+}
+
+.gold,
+.outline{
+  min-height:50px;
+
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+
+  gap:13px;
+
+  padding:0 24px;
+
+  border-radius:999px;
+
+  font-size:14px;
+  font-weight:800;
+
+  transition:.3s ease;
+}
+
+.gold{
+  color:#071016;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--gold-light),
+      var(--gold)
+    );
+
+  box-shadow:
+    0 12px 35px rgba(201,167,106,.15);
+}
+
+.gold:hover{
+  transform:translateY(-3px);
+
+  box-shadow:
+    0 18px 45px rgba(201,167,106,.25);
+}
+
+.outline{
+  color:var(--text);
+
+  border:1px solid var(--line);
+
+  background:rgba(255,255,255,.025);
+}
+
+.outline:hover{
+  color:var(--gold-light);
+
+  border-color:rgba(201,167,106,.5);
+
+  background:rgba(201,167,106,.06);
+
+  transform:translateY(-3px);
+}
+
+/* =========================================================
+   HERO META
+   ========================================================= */
+
+.hero-meta{
+  display:flex;
+  align-items:center;
+  flex-wrap:wrap;
+
+  gap:12px;
+
+  margin-top:10px;
+
+  color:#6e848d;
+
+  font-family:"IBM Plex Mono",monospace;
+
+  font-size:9px;
+
+  letter-spacing:1.5px;
+}
+
+.hero-meta i{
+  width:4px;
+  height:4px;
+
+  border-radius:50%;
+
+  background:var(--gold);
+}
+
+/* =========================================================
+   SECTIONS
+   ========================================================= */
+
+.section{
+  width:min(
+    calc(100% - 40px),
+    var(--container)
+  );
+
+  margin:auto;
+
+  padding:105px 0;
+}
+
+.section + .section{
+  border-top:1px solid var(--white-line);
+}
+
+/* =========================================================
+   SECTION HEAD
+   ========================================================= */
+
+.head{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+
+  gap:40px;
+
+  margin-bottom:40px;
+}
+
+.head h2,
+.about h2,
+.contact h2{
+  font-size:clamp(36px,4vw,58px);
+
+  line-height:1.2;
+
+  font-weight:900;
+
+  letter-spacing:-1.5px;
+}
+
+.head p{
+  max-width:440px;
+
+  color:var(--muted);
+
+  font-size:14px;
+
+  line-height:2;
+}
+
+/* =========================================================
+   PORTFOLIO
+   ========================================================= */
+
+.grid{
+  display:grid;
+
+  grid-template-columns:
+    repeat(3,minmax(0,1fr));
+
+  gap:24px;
+
+  width:100%;
+
+  max-width:1250px;
+
+  margin:0 auto;
+}
+
+/* =========================================================
+   FOLDER / CARD
+   ========================================================= */
+
+.folder-card,
+.card{
+  position:relative;
+
+  overflow:hidden;
+
+  border-radius:22px;
+
+  border:1px solid rgba(201,167,106,.16);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(17,39,49,.94),
+      rgba(6,16,22,.96)
+    );
+
+  box-shadow:
+    0 15px 45px rgba(0,0,0,.22);
+
+  transition:
+    transform .35s ease,
+    border-color .35s ease,
+    box-shadow .35s ease;
+
+  cursor:pointer;
+}
+
+.folder-card:hover,
+.card:hover{
+  transform:translateY(-7px);
+
+  border-color:
+    rgba(201,167,106,.48);
+
+  box-shadow:
+    0 30px 75px rgba(0,0,0,.48),
+    0 0 30px rgba(201,167,106,.055);
+}
+
+/* =========================================================
+   THUMB
+   ========================================================= */
+
+.thumb{
+  position:relative;
+
+  width:100%;
+
+  aspect-ratio:4/3;
+
+  overflow:hidden;
+
+  background:#061117;
+}
+
+.thumb img,
+.thumb video{
+  width:100%;
+  height:100%;
+
+  object-fit:cover;
+
+  transition:
+    transform .6s ease,
+    filter .5s ease;
+}
+
+.folder-card:hover .thumb img,
+.folder-card:hover .thumb video,
+.card:hover .thumb img,
+.card:hover .thumb video{
+  transform:scale(1.045);
+
+  filter:brightness(1.06);
+}
+
+.thumb::after{
+  content:"";
+
+  position:absolute;
+  inset:0;
+
+  pointer-events:none;
+
+  background:
+    linear-gradient(
+      to top,
+      rgba(2,7,10,.72),
+      transparent 55%
+    );
+}
+
+/* =========================================================
+   COUNT
+   ========================================================= */
+
+.count{
+  position:absolute;
+
+  left:14px;
+  bottom:14px;
+
+  z-index:3;
+
+  padding:6px 12px;
+
+  border-radius:999px;
+
+  background:rgba(3,9,13,.78);
+
+  border:1px solid rgba(255,255,255,.1);
+
+  backdrop-filter:blur(10px);
+
+  color:var(--gold-light);
+
+  font-size:11px;
+  font-weight:800;
+}
+
+/* =========================================================
+   META
+   ========================================================= */
+
+.meta{
+  padding:19px 20px 20px;
+}
+
+.meta h3{
+  color:#f5f0e7;
+
+  font-size:17px;
+
+  font-weight:800;
+}
+
+.meta small{
+  display:block;
+
+  margin-top:5px;
+
+  color:#81949c;
+
+  font-size:11px;
+}
+
+/* =========================================================
+   PREVIEW BUTTON
+   ========================================================= */
+
+.preview{
+  width:calc(100% - 40px);
+
+  margin:
+    0 20px 20px;
+
+  min-height:45px;
+
+  border-radius:13px;
+
+  border:1px solid rgba(201,167,106,.22);
+
+  background:rgba(201,167,106,.045);
+
+  color:var(--gold-light);
+
+  font-size:12px;
+  font-weight:800;
+
+  transition:.3s ease;
+}
+
+.preview:hover{
+  background:var(--gold);
+
+  color:#071016;
+
+  border-color:var(--gold);
+}
+
+/* =========================================================
+   PLACEHOLDER
+   ========================================================= */
+
+.placeholder{
+  width:100%;
+  height:100%;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  color:var(--gold);
+
+  font-family:"IBM Plex Mono",monospace;
+
+  font-size:18px;
+  letter-spacing:2px;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(201,167,106,.1),
+      transparent 60%
+    );
+}
+
+/* =========================================================
+   BACK BUTTON
+   ========================================================= */
+
+.back-btn{
+  grid-column:1/-1;
+
+  width:max-content;
+
+  min-height:45px;
+
+  padding:0 18px;
+
+  margin-bottom:4px;
+
+  border-radius:999px;
+
+  border:1px solid var(--line);
+
+  background:rgba(255,255,255,.035);
+
+  color:var(--gold-light);
+
+  font-size:13px;
+  font-weight:800;
+
+  transition:.3s ease;
+}
+
+.back-btn:hover{
+  background:var(--gold);
+
+  color:#071016;
+
+  transform:translateY(-2px);
+}
+
+/* =========================================================
+   EMPTY
+   ========================================================= */
+
+.empty{
+  grid-column:1/-1;
+
+  min-height:180px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  padding:30px;
+
+  border:1px dashed rgba(201,167,106,.25);
+
+  border-radius:20px;
+
+  color:var(--muted);
+
+  text-align:center;
+}
+
+/* =========================================================
+   ABOUT
+   ========================================================= */
+
+.about{
+  position:relative;
+
+  width:min(
+    calc(100% - 40px),
+    var(--container)
+  );
+
+  margin:40px auto 0;
+
+  padding:
+    80px clamp(25px,5vw,80px);
+
+  display:grid;
+
+  grid-template-columns:
+    .45fr 1.55fr;
+
+  align-items:center;
+
+  gap:70px;
+
+  border-top:1px solid var(--line);
+
+  border-bottom:1px solid var(--line);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(201,167,106,.035),
+      rgba(255,255,255,.01)
+    );
+}
+
+/* =========================================================
+   EYE / SYMBOL
+   ========================================================= */
+
+.symbol{
+  display:flex;
+
+  flex-direction:column;
+
+  align-items:center;
+  justify-content:center;
+
+  gap:12px;
+
+  min-height:220px;
+
+  border-radius:28px;
+
+  border:1px solid rgba(201,167,106,.15);
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(201,167,106,.08),
+      transparent 65%
+    );
+}
+
+.symbol span{
+  color:var(--gold);
+
+  font-size:90px;
+
+  line-height:1;
+
+  filter:
+    drop-shadow(
+      0 0 25px rgba(201,167,106,.18)
+    );
+}
+
+.symbol small{
+  color:#778b93;
+
+  font-family:"IBM Plex Mono",monospace;
+
+  font-size:10px;
+
+  letter-spacing:2px;
+}
+
+.about h2 em{
+  color:var(--gold-light);
+
+  font-style:normal;
+}
+
+.about p{
+  max-width:700px;
+
+  margin-top:18px;
+
+  color:var(--muted);
+
+  line-height:2;
+}
+
+/* =========================================================
+   ABOUT LINE
+   ========================================================= */
+
+.about-line{
+  display:flex;
+
+  align-items:center;
+
+  gap:15px;
+
+  margin-top:28px;
+
+  color:var(--gold);
+
+  font-family:"IBM Plex Mono",monospace;
+
+  font-size:11px;
+}
+
+.about-line b{
+  color:#637780;
+}
+
+/* =========================================================
+   CONTACT
+   ========================================================= */
+
+.contact{
+  width:min(
+    calc(100% - 40px),
+    1000px
+  );
+
+  margin:100px auto;
+
+  padding:
+    clamp(45px,7vw,90px);
+
+  text-align:center;
+
+  border-radius:30px;
+
+  border:1px solid rgba(201,167,106,.22);
+
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(19,88,115,.2),
+      transparent 65%
+    ),
+    rgba(8,22,29,.78);
+
+  box-shadow:
+    var(--shadow);
+
+  overflow:hidden;
+}
+
+.contact h2{
+  font-size:clamp(40px,6vw,70px);
+}
+
+.contact p{
+  margin-top:12px;
+
+  color:var(--muted);
+
+  font-size:15px;
+}
+
+.contact-actions{
+  justify-content:center;
+}
+
+.pay{
+  margin-top:25px;
+
+  color:#71858d;
+
+  font-size:12px;
+}
+
+.pay b{
+  color:#b6c3c7;
+}
+
+/* =========================================================
+   MODAL
+   ========================================================= */
+
+.modal{
+  position:fixed;
+
+  inset:0;
+
+  z-index:2000;
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  padding:25px;
+
+  background:rgba(0,0,0,.82);
+
+  backdrop-filter:blur(15px);
+  -webkit-backdrop-filter:blur(15px);
+
+  opacity:0;
+  visibility:hidden;
+
+  transition:.3s ease;
+}
+
+.modal.show{
+  opacity:1;
+  visibility:visible;
+}
+
+.modalbox{
+  position:relative;
+
+  width:min(1100px,95vw);
+
+  max-height:92vh;
+
+  padding:12px;
+
+  border-radius:22px;
+
+  border:1px solid rgba(201,167,106,.25);
+
+  background:#071219;
+
+  box-shadow:
+    0 40px 120px rgba(0,0,0,.75);
+
+  overflow:auto;
+}
+
+.modalbox img,
+.modalbox video{
+  width:100%;
+  max-height:84vh;
+
+  object-fit:contain;
+
+  border-radius:14px;
+}
+
+#close{
+  position:absolute;
+
+  top:12px;
+  left:12px;
+
+  z-index:5;
+
+  width:42px;
+  height:42px;
+
+  border-radius:50%;
+
+  border:1px solid rgba(255,255,255,.16);
+
+  background:rgba(0,0,0,.7);
+
+  color:white;
+
+  font-size:27px;
+
+  line-height:1;
+
+  transition:.25s ease;
+}
+
+#close:hover{
+  background:var(--gold);
+
+  color:#071016;
+
+  transform:rotate(90deg);
+}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+footer{
+  width:min(
+    calc(100% - 40px),
+    var(--container)
+  );
+
+  margin:auto;
+
+  padding:
+    30px 0 40px;
+
+  display:flex;
+
+  align-items:center;
+  justify-content:space-between;
+
+  gap:20px;
+
+  border-top:1px solid var(--white-line);
+
+  color:#71848c;
+
+  font-family:"IBM Plex Mono",monospace;
+
+  font-size:10px;
+}
+
+footer a{
+  color:var(--gold);
+
+  transition:.25s ease;
+}
+
+footer a:hover{
+  color:var(--gold-light);
+}
+
+/* =========================================================
+   ANIMATION
+   ========================================================= */
+
+.section,
+.about,
+.contact{
+  opacity:1;
+  transform:none;
+}
+
+.show{
+  animation:
+    cardIn .55s ease both;
+}
+
+@keyframes cardIn{
+  from{
+    opacity:0;
+    transform:translateY(15px);
+  }
+
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+/* ================================

@@ -1,0 +1,37 @@
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>FOMIXA 07 — Admin</title><link rel="stylesheet" href="admin.css"></head><body><main>
+<div class="top"><h1>FOMIXA <b>07</b> — إدارة الأعمال</h1><a href="index.html">← الموقع</a></div>
+<div class="box"><h2>إضافة الأعمال دفعة واحدة</h2>
+<p>اختار فولدر الشغل بالكامل. الموقع هيقرأ كل الصور والفيديوهات داخله، ويضيفهم تلقائيًا. التصنيف يعتمد على اسم المجلد: Social / Covers / Advertising.</p>
+<label>لو الفولدر الرئيسي اسمه FOMIXA WORK وفيه مجلدات فرعية، اختاره هو.</label>
+<input id="folder" type="file" accept="image/*,video/*" webkitdirectory directory multiple hidden>
+<label class="drop" for="folder">📁 اختيار فولدر الشغل بالكامل</label>
+<div class="status" id="status">جاهز لاستقبال الشغل.</div><button id="clearAll" class="clear-all">🗑️ مسح كل الأعمال</button>
+<hr>
+<h3>إضافة ملفات محددة (اختياري)</h3>
+<label>القسم</label><select id="cat"><option value="social">Social Media Design</option><option value="cover">Cover Design</option><option value="ads">Advertising Design</option></select>
+<label>اسم المشروع</label><input id="title" placeholder="مثال: حملة إعلانية">
+<input id="files" type="file" accept="image/*,video/*" multiple hidden>
+<label class="drop small" for="files">＋ اختيار ملفات متعددة</label>
+</div><div id="list"></div></main><script>
+const DB="fomixaPortfolioDB_v2", STORE="items";
+const cats={social:"Social Media Design",cover:"Cover Design",ads:"Advertising Design"};
+const folder=document.getElementById("folder"),files=document.getElementById("files"),cat=document.getElementById("cat"),title=document.getElementById("title"),list=document.getElementById("list"),status=document.getElementById("status");
+function db(){return new Promise((res,rej)=>{let r=indexedDB.open(DB,1);r.onupgradeneeded=()=>r.result.createObjectStore(STORE,{keyPath:"id",autoIncrement:true});r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)})}
+async function all(){let d=await db();return new Promise((res,rej)=>{let r=d.transaction(STORE,"readonly").objectStore(STORE).getAll();r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)})}
+async function put(x){let d=await db();return new Promise((res,rej)=>{let r=d.transaction(STORE,"readwrite").objectStore(STORE).add(x);r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)})}
+async function remove(id){let d=await db();return new Promise((res,rej)=>{let r=d.transaction(STORE,"readwrite").objectStore(STORE).delete(id);r.onsuccess=()=>res();r.onerror=()=>rej(r.error)})}
+function guess(path){let p=(path||"").toLowerCase();if(/cover|غلاف|اغلف/.test(p))return"cover";if(/advert|(^|[/\\])ad([_ -]|$)|اعلان|إعلان/.test(p))return"ads";return"social"}
+async function addFiles(arr,fromFolder){
+ let filesArr=[...arr].filter(f=>f.type.startsWith("image/")||f.type.startsWith("video/"));
+ status.textContent=`جاري إضافة ${filesArr.length} ملف...`;
+ let n=0;
+ for(const f of filesArr){await put({file:f,title:fromFolder?"":title.value,cat:fromFolder?guess(f.webkitRelativePath):cat.value,name:f.name,type:f.type,path:f.webkitRelativePath||f.name,created:Date.now()});n++;status.textContent=`تمت إضافة ${n} من ${filesArr.length}...`}
+ status.textContent=`✅ تم إضافة ${n} عمل. افتح الموقع وشوفهم.`;
+ await render();
+}
+async function render(){let a=await all();list.innerHTML="";if(!a.length){list.innerHTML="<p>لا توجد أعمال مضافة.</p>";return}for(const x of a){let u=URL.createObjectURL(x.file),d=document.createElement("article");d.className="item";d.innerHTML=(x.type.startsWith("video")?`<video controls src="${u}"></video>`:`<img src="${u}">`)+`<div><b>${x.title||x.name}</b><small>${cats[x.cat]}</small><button data-id="${x.id}">حذف</button></div>`;d.querySelector("button").onclick=async()=>{await remove(x.id);render()};list.appendChild(d)}}
+document.getElementById("clearAll").onclick=async()=>{if(!confirm("مسح كل الأعمال؟ لا يمكن التراجع."))return;let d=await db();await new Promise((res,rej)=>{let r=d.transaction(STORE,"readwrite").objectStore(STORE).clear();r.onsuccess=res;r.onerror=()=>rej(r.error)});status.textContent="تم مسح كل الأعمال.";render()};
+folder.onchange=()=>{if(folder.files.length)addFiles(folder.files,true);folder.value=""};
+files.onchange=()=>{if(files.files.length)addFiles(files.files,false);files.value=""};
+render();
+</script></body></html>
